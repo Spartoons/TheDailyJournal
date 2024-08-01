@@ -1,0 +1,89 @@
+{
+  "title": {
+    "text": "The Aran's Post",
+    "font": "Abibas",
+    "size": 72.1,
+    "x": 22.72,
+    "y": 750.45
+  },
+  "header": {
+    "text": "Esto es lo que contaminas cuando ves Netflix o HBO",
+    "font": "Helvetica-Bold",
+    "size": 24,
+    "x": 22.72,
+    "y": 750
+  },
+  "articles": [
+    {
+      "title": {
+        "text": "The Batman: Coguionista explica el enfoque de la pelicula",
+        "font": "Helvetica-Bold",
+        "size": 20,
+        "x": 22.72,
+        "y": 680
+      },
+      "body": {
+        "text": "Se explicara el trauma de Bruce Wayne de forma divertida y sorprendente",
+        "font": "Helvetica",
+        "size": 12,
+        "x": 22.72,
+        "y": 660
+      },
+      "image": {
+        "path": "assets/images/slkasjldaslñ.png",
+        "x": 400,
+        "y": 600,
+        "width": 150,
+        "height": 100
+      }
+    },
+    {
+      "title": {
+        "text": "Jurassic World: Dominion: Un primer vistazo a los dinosaurios del rodaje",
+        "font": "Helvetica-Bold",
+        "size": 20,
+        "x": 50,
+        "y": 550
+      },
+      "body": {
+        "text": "La ultima pelicula de la trilogia de Jurassic World nos muestra imagenes que adelantan detalles de la trama.",
+        "font": "Helvetica",
+        "size": 12,
+        "x": 50,
+        "y": 530
+      }
+    },
+    {
+      "title": {
+        "text": "Una falla de seguridad de Snapdragon",
+        "font": "Helvetica-Bold",
+        "size": 20,
+        "x": 50,
+        "y": 450
+      },
+      "body": {
+        "text": "Un fallo en la seguridad de Snapdragon ha vulnerado a millones de dispositivos Android.",
+        "font": "Helvetica",
+        "size": 12,
+        "x": 50,
+        "y": 430
+      }
+    },
+    {
+      "title": {
+        "text": "Las vacaciones de la familia a Andorra se acercan cada vez más",
+        "font": "Helvetica-Bold",
+        "size": 20,
+        "x": 50,
+        "y": 350
+      },
+      "body": {
+        "text": "La familia al completo se ira de vacaciones el proximo domingo 16 de Agosto.",
+        "font": "Helvetica",
+        "size": 12,
+        "x": 50,
+        "y": 330
+      }
+    }
+  ]
+}
