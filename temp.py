@@ -1,4 +1,5 @@
 import json
+import requests
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QLabel, QLineEdit, QTextEdit, QPushButton
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
@@ -17,12 +18,19 @@ from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_RIGHT, TA_JUSTIFY
 FONT_PATHS = {
     'Abibas': './assets/fonts/abibas/Abibas.ttf',
     'ArchivoBlack': './assets/fonts/ArchivoBlack-Regular.ttf',
-    'Barlow': './assets/fonts/Barlow-Black.ttf'
+    'Barlow': './assets/fonts/Barlow-Black.ttf',
+    'RobotoThin': './assets/fonts/Roboto-Thin.ttf',
+    'RobotoLight': './assets/fonts/Roboto-Light.ttf'
+
 }
 IMAGE_PATH = "./assets/images/cursorhand.jpg"
 IMG_PATH = "assets/images/slkasjldaslñ.png"
 PDF_OUTPUT = "tempnews.pdf"
 TEMPLATE_PATH = 'template.json'
+
+with open('api_key.txt', 'r') as file:
+    # Read the entire file content
+    API_KEY = file.read()
 
 def register_fonts():
     """Register custom fonts."""
@@ -155,6 +163,51 @@ def draw_static_elements(c, template, formatted_date):
     c.setLineWidth(6.5)
     c.line(22.72,743,572.28,743)
 
+def get_weather(city):
+    geo_url = f"http://api.openweathermap.org/geo/1.0/direct?q={city}&limit=1&appid={API_KEY}"
+    geo_response = requests.get(geo_url)
+    geo_data = geo_response.json()
+    if not geo_data:
+        return None
+    
+    lat = geo_data[0]['lat']
+    lon = geo_data[0]['lon']
+    
+    url = f"https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API_KEY}"
+    response = requests.get(url)
+    data = response.json()
+
+    if data['cod'] == '200' and 'list' in data:
+        # Use data from the first item in the list for simplicity
+        forecast = data['list'][0]
+        weather = {
+            'city': data['city']['name'],
+            'max_temp': round(forecast['main']['temp_max'] - 273.15, 2),
+            'min_temp': round(forecast['main']['temp_min'] - 273.15, 2),
+            'avg_temp': round(forecast['main']['temp'] - 273.15, 2),
+            'wind_speed': forecast['wind']['speed'],
+            'rain': forecast.get('rain', {}).get('3h', 0),
+            'icon': forecast['weather'][0]['icon']
+        }
+        return weather
+    else:
+        return None
+
+def draw_weather_section(c, city, x, y):
+    weather = get_weather(city)
+    c.setFillColorRGB(212/255, 243/255, 255/255)
+    c.rect(x, y, 130, 60, fill=1)
+    icon_path = f"./assets/weather_icons/{weather['icon']}.png"
+    c.drawImage(icon_path, x + 7, y + 26, 33, 33, mask='auto')
+    
+    draw_paragraph(c, city, x + 50, y + 54, alignment=0, weight=75, max_rows=1)
+    #draw_paragraph(c, f"Max Temp: {weather['max_temp']}°C", x + 5, y + 25, alignment=0, size=8)
+    #draw_paragraph(c, f"Min Temp: {weather['min_temp']}°C", x + 5, y + 15, alignment=0, size=8)
+    draw_paragraph(c, f"{weather['avg_temp']}°C", x + 50, y + 38, alignment=0, weight=130, size=17, color=(142/255, 160/255, 165/255), font="RobotoLight")
+    #draw_paragraph(c, f"Wind: {weather['wind_speed']} m/s", x + 70, y + 25, alignment=0, size=8)
+    if weather['rain']:
+        draw_paragraph(c, f"Rain: {weather['rain']} mm", x + 70, y + 15, alignment=3, weight=130, size=9)
+
 def main():
     """Main function to generate the PDF."""
     register_fonts()
@@ -205,8 +258,8 @@ def main():
 
 
     # Weather section
-    c.rect(442.72, 50, 130, 60)
-    draw_paragraph(c, "Barcelona", 515, 100, alignment=3, weight=130, size=11)
+    city = 'Barcelona'
+    draw_weather_section(c, city, 443.72, 65)
 
     c.save()
 
