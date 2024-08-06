@@ -1,0 +1,18 @@
+{
+    "Article 1": {
+        "title": "A Visit to Grandma's House",
+        "text": "Today, I had a wonderful time visiting my grandma. We spent the afternoon chatting about old family stories and looking through photo albums. Grandma baked her famous apple pie, and we enjoyed it with some homemade ice cream. The visit was a delightful break from my usual routine and filled me with warmth and nostalgia.",
+        "type": "article"
+    },
+    "Article 2": {
+        "title": "Movie Review: Inception",
+        "text": "Last night, I watched Christopher Nolan's Inception for the first time. The movie's complex narrative structure and stunning visual effects left me in awe. Leonardo DiCaprio's performance was outstanding, and the plot twists kept me on the edge of my seat. The concept of dreams within dreams was executed brilliantly, making it a thought-provoking and memorable film. I give it a solid 9/10.",
+        "type": "article"
+    },
+    "Article 3": {
+        "title": "Weather in Barcelona",
+        "text": "Today's weather in Barcelona was sunny with a clear sky. The temperature reached a pleasant 25°C, making it perfect for outdoor activities. The humidity level was at 60%, providing a comfortable atmosphere throughout the day. It was an ideal day for a walk along the beach or a visit to the park.",
+        "type": "article"
+    }
+}
+  

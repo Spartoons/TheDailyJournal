@@ -25,12 +25,25 @@ FONT_PATHS = {
 }
 IMAGE_PATH = "./assets/images/cursorhand.jpg"
 IMG_PATH = "assets/images/slkasjldaslñ.png"
-PDF_OUTPUT = "tempnews.pdf"
+PDF_OUTPUT = "TheAran'sPost_" + str(datetime.now()).split(" ")[0]+".pdf"
 TEMPLATE_PATH = 'template.json'
+
+page = 1
+
+# Read content
+with open('content.json', 'r') as f:
+            content = json.load(f)
 
 with open('api_key.txt', 'r') as file:
     # Read the entire file content
     API_KEY = file.read()
+
+# Define the element class to organize columns' content
+class Element():
+    def __init__(self, name, x, y):
+        self.name = name
+        self.x = x
+        self.y = y
 
 def register_fonts():
     """Register custom fonts."""
@@ -163,6 +176,15 @@ def draw_static_elements(c, template, formatted_date):
     c.setLineWidth(6.5)
     c.line(22.72,743,572.28,743)
 
+    c.setStrokeColorRGB(0,0,0)
+    c.setLineWidth(1)
+    c.line(22.72,20,280.28,20)
+    c.line(315,20,572.28,20)
+
+
+    draw_paragraph(c, str(page), 0, 23, alignment=1, weight=595, size=10)
+
+
 def get_weather(city):
     geo_url = f"http://api.openweathermap.org/geo/1.0/direct?q={city}&limit=1&appid={API_KEY}"
     geo_response = requests.get(geo_url)
@@ -250,11 +272,10 @@ def main():
 
     c.drawImage(IMG_PATH, x_image, y_image, weight_image, height_image)
 
-    draw_paragraph(c, lorem, 22.72, y_image-10, alignment=3, weight=130, size=9)
-    draw_paragraph(c, lorem, 162.72, y_image-10, alignment=3, weight=130, size=9)
-    draw_paragraph(c, lorem, 302.72, y_image-10, alignment=3, weight=130, size=9)
-    draw_paragraph(c, lorem, 442.72, title_y-25, alignment=3, weight=130, size=9)
-    draw_paragraph(c, lorem, 442.72, 363, alignment=3, weight=130, size=9)
+    draw_paragraph(c, lorem, 22.72, y_image-10, alignment=3, weight=130, height=y_image-10-26, size=9)
+    #draw_paragraph(c, lorem, 162.72, y_image-10, alignment=3, weight=130, size=9)
+    #draw_paragraph(c, lorem, 302.72, y_image-10, alignment=3, weight=130, size=9)
+    #draw_paragraph(c, lorem, 442.72, title_y-25, alignment=3, weight=130, size=9)
 
 
     # Weather section
